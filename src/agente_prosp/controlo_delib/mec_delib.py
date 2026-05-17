@@ -27,7 +27,7 @@ class MecDelib():
         """
 
         objectivos = self.__gerar_objectivos() # geramos todos os objectivos
-        if objectivos: # verificamos se existem objectivos
+        if objectivos: # verificamos se existem objectivos # := self.__gerar_objectivos nota que estava escrito no codigo do professor, comentar depois o que é em python
             return self.__seleccionar_objectivos(objectivos) # e retornamos todos os objectivos
 
     def __gerar_objectivos(self):

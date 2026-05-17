@@ -1,13 +1,14 @@
 from agente.controlo import Controlo
 from .mec_delib import MecDelib
 from .modelo.modelo_mundo import ModeloMundo
+import sae
 
 class ControloDelib(Controlo):
 
     """
     O ControloDelib implementa o ciclo de vida do agente deliberativo. De acordo com o diagrama 
     da arquitetura, esta classe atua como o orquestrador principal, ligando a perceção do 
-    ambiente à ação através de simulação interna. Ela gere o ModeloMundo para manter a 
+    ambiente à ação através de simulação interna. Gere o ModeloMundo para manter a 
     representação do estado, o MecDelib para decidir os objetivos a atingir e o Planeador 
     para calcular os caminhos até esses objetivos.
     """
@@ -27,15 +28,20 @@ class ControloDelib(Controlo):
         self.__objectivos = [] # iniciar objectivos como uma lista vazia, inicialmente não ah objectivos
         self.__plano = None
 
-    def processar(self, percepcao):
-        pass
+    def processar(self, percepcao): # fiz este metodo com o diagrama de atividades na parte 4 slide 6
+        percepcao = self.__assimilar(percepcao) # atualizamos o modelo do mundo com a percepcao recebida
+        if self.__reconsiderar(): # verificamos de reconsideramos os objectivos
+            self.__deliberar() # deliberamos
+            self.__planear() # planeamos
+        accao = self.__executar() 
+        return accao # retornamos a acção executar
 
     def __assimilar(self, percepcao):
         """
         Atualização o estado interno da classe ModeloMundo, passando a 
         perceção recebida como argumento para o método atcualizar do modelo.
         """
-        self.modelo_mundo.actualizar(percepcao) 
+        self.__modelo_mundo.actualizar(percepcao) 
 
     def __reconsiderar(self):
         """
@@ -57,8 +63,28 @@ class ControloDelib(Controlo):
         self.__objectivos = self.__mec_delib.deliberar()
 
     def __planear(self):
-        self.__planeador.planear()
+        if self.__objectivos:
+            self.__plano = self.__planeador.planear(self.__modelo_mundo, self.__objectivos)
+        else:
+            self.__plano = None
+        # se existirem objectivos, entao planear, caso contrario nao existe plano
 
     def __executar(self):
+            self.__mostrar()
+            if self.__plano:
+                estado = self.__modelo_mundo.obter_estado()
+                operador = self.__plano.obter_accao(estado)
+                if operador:
+                    return operador.accao
+                else:
+                    self.__plano = None
 
     def __mostrar(self):
+            sae.vista.limpar()
+            self.__modelo_mundo.mostrar(sae.vista)
+            if self.__plano:
+                self.__plano.mostrar(sae.vista)
+            if self.__objectivos:
+                for objectivo in self.__objectivos:
+                    sae.vista.marcar_posicao(objectivo.posicao)
+

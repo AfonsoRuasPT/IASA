@@ -1,10 +1,11 @@
-from operador_mover import OperadorMover
+from .operador_mover import OperadorMover
 from sae.ambiente.direccao import Direccao
 import math
-from estado_agente import EstadoAgente
+from .estado_agente import EstadoAgente
 from sae.ambiente.elemento import Elemento
+from plan.modelo.modelo_plan import ModeloPlan
 
-class ModeloMundo():
+class ModeloMundo(ModeloPlan):
 
     """
     A classe ModeloMundo constitui a memória estruturada do agente no pacote modelo.
@@ -66,6 +67,9 @@ class ModeloMundo():
             if elemento in [Elemento.ALVO, Elemento.OBSTACULO]:
                 vista.mostrar_elemento(posicao, elemento)
         vista.marcar_posicao(self.__estado.posicao)
+
+    def __contains__(self, estado):
+        return estado in self.__estados
 
     @property
     def alterado(self):

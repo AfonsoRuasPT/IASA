@@ -2,6 +2,10 @@ from mod.estado import Estado
 
 class EstadoAgente(Estado):
 
+    '''
+    Especializa o Estado
+    '''
+
     def __init__(self, posicao):
         self.__posicao = posicao
         self.__id_valor = hash(posicao)
