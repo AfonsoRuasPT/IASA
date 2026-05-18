@@ -4,10 +4,6 @@ from .plano_pee import PlanoPEE
 from plan.plan_pee.mod_prob.heur_dist import HeurDist
 from plan.plan_pee.mod_prob.problema_plan import ProblemaPlan
 
-# src\lib\plan\plan_pee\mod_prob\heur_dist.py # relative path
-# src\lib\plan\plan_pee\mod_prob\problema_plan.py # relative path
-
-# src\lib\plan\plan_pee\planeador_pee.py # caminho relatico desta class
 class PlaneadorPEE(Planeador):
 
     def __init__(self):
