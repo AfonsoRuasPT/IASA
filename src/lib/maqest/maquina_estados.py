@@ -1,5 +1,12 @@
 class MaquinaEstados():
 
+    '''
+    MaquinaEstados implementa o modelo formal de uma Máquina de Estados Finita de Mealy.
+    É caracterizada por: λ : QxΣ → Z
+
+    É uma Máquina de Mealy porque a saída λ depende do estado E do evento (slide 5 dinâmica).
+    '''
+
 
     # transicoes -> [(EstadoAnt, Evento, EstadoSuc, Accao)]
     def __init__(self, estado_inicial, transicoes):

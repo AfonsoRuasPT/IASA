@@ -1,10 +1,16 @@
 from agente.percepcao import Percepcao
 
-class PercepcaoJogo(Percepcao):
+class PercepcaoJogo(Percepcao): # herda de Percepcao, concretiza o tipo percepção para o contexto do jogo
 
-    def __init__(self, evento):
+    '''
+    PercepcaoJogo é a concretização de Percepcao no contexto do jogo.
+
+    PercepcaoJogo tem uma associação com EventoJogo.
+    '''
+
+    def __init__(self, evento): # recebe o EventoJogo como parametro
         self.__evento = evento
 
     @property
-    def evento(self):
-        return self.__evento
+    def evento(self): # propriedade de leitura (read only)
+        return self.__evento # devolve o EventoJogo encapsulado

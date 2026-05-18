@@ -3,6 +3,13 @@ from .evento_jogo import EventoJogo
 
 class AmbienteJogo():
 
+    '''
+    AmbienteJogo é o ambiente virtual do jogo onde a personagem actua.
+    Gera eventos (percepções) e recebe comandos (acções) da personagem.
+
+    AmbienteJogo agrega EventoJogo: mantém um dicionário com todos os EventoJogo possíveis e o evento actual.
+    '''
+
     def __init__(self):
         self.__eventos = {evento.value: evento for evento in EventoJogo} # enumerado de eventos do jogo
         """seja um dicionaria ou uma lista quando defenimos cada elemento, e geramos dinamicamente as expressoes de
@@ -20,18 +27,13 @@ class AmbienteJogo():
         if self.__evento is not None: # se o evento gerado for diferente de None, ou seja, se houver um evento do jogo a atualizar, None é uma marca de ausencia de valor, o != implica comparacao de valores ent aqui n dá, é um teste semantico
             self.evento.mostrar() # imprimir o evento atualizado do jogo
 
-
     def observar(self):
         #retorna o atributo envento privado
         return self.__evento
     
-        
-
-    
     def executar(self, comando):
-        #sobre o comando, evota o metodo mostrar
+        #sobre o comando, chama o metodo mostrar
         comando.mostrar() # mostrar o comando do jogo
-        
         
     def __gerar_evento(self): # metodo privado para gerar um evento do jogo, é chamado pelo método evoluir para atualizar o evento atual do jogo
         texto = input("\nEvento? ")  # solicitar ao utilizador que digite o evento do jogo
