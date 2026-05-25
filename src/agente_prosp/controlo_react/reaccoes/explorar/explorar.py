@@ -9,6 +9,8 @@ class Explorar(Comportamento): # Explorar é um comportamento, por isso herda de
     """
     O comportamento explorar sendo o mais "simples" penso que seja o comportamento mais em baixo na hierarquia, logo terá o indice 2
     Aleatoriamente anda e roda ah procura alvos
+
+    Este comportamento basea-se resumidamente em avancar e rodar consoante probabilidades.
     """
 
     """

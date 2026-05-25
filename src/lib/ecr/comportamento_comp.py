@@ -1,6 +1,15 @@
 from .comportamento import Comportamento
 from abc import abstractmethod
 
+'''
+O Comportamento Composto é um tipo de comportamento que agrega outros comportamentos (sub-comportamentos) e requer um mecanismo de selecção de acção para determinar
+qual a acção a executar em função das respostas dos vários comportamentos internos.
+Uma percepção pode potencialmente activar múltiplas reacções, gerando diferentes acções, pelo que é necessário seleccionar qual a acção a gerar à saída.
+Os mecanismos de selecção disponíveis são:
+  Hierarquia - os comportamentos têm prioridade fixa pela sua ordem na lista
+  Prioridade - a acção com maior prioridade associada é seleccionada
+'''
+
 """
 O polimorfismo é um princípio fundamental que permite que 
 objetos de diferentes classes sejam tratados como se fossem do mesmo tipo. 
@@ -17,27 +26,35 @@ as classes filhas que são classes que vao implementar o metodo seleccionar_acca
 uma maneira hierarquica e uma maneira prioritaria.
 """
 
-class ComportamentoComp(Comportamento):
+class ComportamentoComp(Comportamento): # herda de Comportamento; é também um comportamento mas composto por outros
 
-    def __init__(self, comportamentos):
+    '''
+    ComportamentoComp implementa o mecanismo base de um comportamento composto
+    da biblioteca ECR. 
+    Agrega uma lista de sub-comportamentos, activa todos perante uma percepção, recolhe as acções geradas e delega a selecção da acção final ao método abstracto seleccionar_accao,
+    que é implementado pelas subclasses Hierarquia e Prioridade.
 
+    ComportamentoComp herda de Comportamento.
+    O simbolo 1*... no diagram da arquitetura significa que ComportamentoComp agrega um ou mais Comportamentos.
+    '''
+
+    def __init__(self, comportamentos): # recebe a lista de sub-comportamentos que este comportamento composto agrega
         """
         O comportamento composto é como o nome indica um conjunto de comportamentos, para selecionar um desses comportamentes para ser ativado existe uma seleccao se accao
-        que é um metodo que temos tambem
         """
-        self.__comportamentos = comportamentos # alterei isto
+        self.__comportamentos = comportamentos # lista de Comportamentos, define os sub-comportamentos agregados
 
-    def activar(self, percepcao): # retorna uma accao
+    def activar(self, percepcao): # activa todos os sub-comportamentos e selecciona a acção final
         accoes = []
-        for comportamento in self.__comportamentos: # para todos os comportamentos, activar o comportamento com base na percepção, que é uma accao
+        for comportamento in self.__comportamentos: # para todos os sub-comportamentos, activar com a percepção actual
             accao = comportamento.activar(percepcao)
-            if accao: # linha adicionada, nao estava
-                accoes.append(accao) # se a accao for diferente de None, adicionar a accao à lista de accoes
-        if accoes: # verificar se a lista tem accoes
-            # print("ATIVAR")
-            return self.seleccionar_accao(accoes) # selecionar a accao a partir do metodo seleccionar_accao
-                # nao retornamos logo a accao porque esse criterio cabe ao metodo seleccionar_accao, respeitar a arquiterira, dependendo do critério podemos até nao retornar accao nenhuma, e caso queiramos alterar o criterio assim não temos de mexer neste método 
+            if accao: # só adiciona à lista se o comportamento foi activado 
+                accoes.append(accao) # recolhe todas as acções geradas pelos sub-comportamentos activados
+        if accoes: # se existir alguma accao na lista
+            return self.seleccionar_accao(accoes) 
+            # não retornamos logo a accao porque esse critério cabe ao método seleccionar_accao.
+
         
-    @abstractmethod # metodo abstrato
-    def seleccionar_accao(self, accoes): # retorna uma accao
+    @abstractmethod # metodo abstrato: cada subclasse define o seu mecanismo de selecção de acção
+    def seleccionar_accao(self, accoes): # dada a lista de acções geradas, selecciona e devolve a acção final
         """"""

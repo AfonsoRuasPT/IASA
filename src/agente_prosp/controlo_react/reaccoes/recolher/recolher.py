@@ -12,7 +12,10 @@ class Recolher(Hierarquia):
     A hierarquia de cad acomportamento está descrito em cada um deles
     """
 
-    """"""
+    """
+    Este comportamento composto descreve todos os comportamentos do nosso agente, dado que é composto por outros comportamentos/comportamente compostos.
+    
+    """
 
     def __init__(self):
         super().__init__((AproximarAlvo(), EvitarObst(), ExplorarMem(), Explorar())) # AproximarAlvo(), EvitarObst(), ExplorarMem(), 

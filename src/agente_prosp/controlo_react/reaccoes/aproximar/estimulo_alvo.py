@@ -28,4 +28,4 @@ class EstimuloAlvo(Estimulo):
         caso contrario retornamos 0.
         """
         return self.__gama**distancia \
-            if elemento == Elemento.ALVO else 0
+            if elemento == Elemento.ALVO else 0 # retorna a intencidade/prioridade do estimulo se o elemento for um ALVO, caso contrario retorna 0

@@ -13,4 +13,4 @@ class EstminuloObs(Estimulo):
         # utilizar operdor ternario para no detetar retornar 0 se n tiver um obstaculo presente e devolver 1
         
         # retonamos INTENS_OBS se o agente detetar um obstaculo, caso contrario retirnamos 0
-        return EstminuloObs.INTENS_OBS if percepcao.contacto_obst() else 0
+        return EstminuloObs.INTENS_OBS if percepcao.contacto_obst() else 0 # retorna 1 se o elemento for um ALVO ou 0 se não for

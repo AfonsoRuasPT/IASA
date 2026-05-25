@@ -7,4 +7,4 @@ class RespostaMover(Resposta):
     """
 
     def __init__ (self, direccao = None):
-        super().__init__(Mover(direccao)) # chama o construtor da classe Resposta
+        super().__init__(Mover(direccao)) # chama o construtor da classe Resposta, move-se na direccao passada no construtor
