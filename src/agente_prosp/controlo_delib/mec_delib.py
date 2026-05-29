@@ -70,7 +70,7 @@ class MecDelib():
         função, um por um, para descobrir o valor de ordenação de cada elemento. 
         """
         
-        return objectivos[:1]
+        return objectivos # alterado na aula de entrega 12
         # com este sort pretendemos que dentro dos objetivos (alvos) que verificamos
         # retornamos o objetivo mais proximo, ou seja que tem menos distancia a nossa posicao
         # dependendo do problema podemos defenir o objectivo de forma diferente.

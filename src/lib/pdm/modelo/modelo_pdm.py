@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
 class ModeloPDM(ABC):
+    """
+    Esta interface é responsavel por 
+    """
 
     @abstractmethod
     def S(self):
