@@ -3,6 +3,17 @@ from .solucao import Solucao
 
 class MecanismoProcura:
 
+    '''
+    O Mecanismo de Procura é o algoritmo que explora o espaço de estados a partir do estado inicial em busca do estado objectivo.
+    Mantém uma fronteira de exploração (lista de nós por expandir) e uma árvore de procura (estrutura de nós expandidos com antecessores).
+    O processo em cada passo :
+    1 - Remover o primeiro nó da fronteira
+    2 - Verificar se o estado é o objectivo - devolver Solucao
+    3 - Expandir o nó: aplicar todos os operadores e gerar nós sucessores
+    4 - Memorizar cada sucessor (inserir na fronteira)
+    5 - Se fronteira vazia - não existe solução (devolver None)
+    '''
+
     """
     O MecanismoProcura é o que faz a exploração do espaco de estados, utilizando a fronteira fornecida para guiar a sua navegação.
     O seu metodo central é o procurar, que a partir do estado inicial e a sua expanção atravez de operadores retorna ou não uma solução.

@@ -1,8 +1,11 @@
 from .procura_informada import ProcuraInformada
 from .aval.avaliador_sofrega import AvaliadorSofrega
 
-class ProcuraSofrega(ProcuraInformada):
+class ProcuraSofrega(ProcuraInformada): # herda de ProcuraInformada
 
+    """
+    Herda de ProcuraInformada
+    """
 
     """
     A classe ProcuraSofrega é um tipo de procura informada. 

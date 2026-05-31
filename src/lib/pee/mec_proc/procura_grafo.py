@@ -1,8 +1,21 @@
 from .mecanismo_procura import MecanismoProcura
-
-class ProcuraGrafo(MecanismoProcura):
-
-
+ 
+'''
+A Procura em Grafos estende a procura básica para lidar com grafos que têm ciclos: quando o espaço de estados tem transições
+reversíveis, a procura em árvore pode expandir o mesmo estado infinitamente.
+A solução é manter um dicionário _explorados que regista todos os estados já visitados, evitando reexpandir estados repetidos.
+'''
+ 
+class ProcuraGrafo(MecanismoProcura): # herda de MecanismoProcura; acrescenta memória de estados explorados para evitar ciclos
+ 
+    '''
+    ProcuraGrafo evita a reexpansão de estados já visitados mantendo um dicionário _explorados indexado por estado.
+    Antes de inserir um nó na fronteira, _manter() verifica se o estado
+    já foi explorado. _memorizar() só insere o nó se _manter() devolver True.
+ 
+    ProcuraGrafo herda de MecanismoProcura (generalização).
+    '''  
+ 
     """
     A classe ProcuraGrafo é uma evolução direta do mecanismo de procura base, desenhada especificamente para lidar com problemas 
     onde o espaço de estados tem ciclos (ou seja, quando existem caminhos que nos levam de volta a situações por onde já passámos).
@@ -17,16 +30,15 @@ class ProcuraGrafo(MecanismoProcura):
     esta classe é fundamental para impedir que o algoritmo fique preso em ciclos infinitos ou desperdice tempo e memória a 
     expandir estados repetidos.
     """  
-
+ 
     def _iniciar_memoria(self):
-        super()._iniciar_memoria() # invocar o iniciar memoria da super class para iniciar a fronteira
-        self._explorados = {} # inicia o dicionario vazio dos explorados
-        
+        super()._iniciar_memoria() # inicia a fronteira chamando o método da superclasse
+        self._explorados = {} # dicionário {estado: No} indexado por Estado
+ 
     def _memorizar(self, no):
-        # se for para manter o no, 
-        if self._manter(no):
-            self._explorados[no.estado] = no
-            super()._memorizar(no)
-
-    def _manter(self, no):
-        return no.estado not in self._explorados
+        if self._manter(no): # só memoriza o nó se for para manter, se não significa que o no ja esta memorizado
+            self._explorados[no.estado] = no # regista o estado no dicionário de explorados antes de inserir na fronteira
+            super()._memorizar(no) # chama _memorizar() que insere o nó na fronteira
+ 
+    def _manter(self, no): # verifica se o estado ainda não foi explorado
+        return no.estado not in self._explorados # devolve True se o estado é novo (não está no dicionário)

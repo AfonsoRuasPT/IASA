@@ -1,7 +1,7 @@
 from .procura_informada import ProcuraInformada
 from .aval.avaliador_aa import AvaliadorAA
 
-class ProcuraAA(ProcuraInformada):
+class ProcuraAA(ProcuraInformada): # herda de ProcuraInformada
 
     """
     A classe ProcuraAA implementa o algoritmo de procura A*. 
@@ -12,4 +12,4 @@ class ProcuraAA(ProcuraInformada):
     """
 
     def __init__(self):
-        super().__init__(AvaliadorAA())
+        super().__init__(AvaliadorAA()) # inicia ProcuraInformada com AvaliadorAA: f(n) = g(n) + h(n)

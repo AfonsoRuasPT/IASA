@@ -1,7 +1,11 @@
 from .procura_melhor_prim import ProcuraMelhorPrim
 from .aval.avaliador_custo_unif import AvaliadorCustoUnif
 
-class ProcuraCustoUnif(ProcuraMelhorPrim):
+class ProcuraCustoUnif(ProcuraMelhorPrim): # herda de ProcuraMelhorPrim
+
+    '''
+    Herda de ProcuraMelhorPrim.
+    '''
 
     """
     A classe ProcuraCustoUnif concretiza o algoritmo de Procura de Custo Uniforme, que é um caso particular da Procura Melhor-Primeiro. 
@@ -13,4 +17,4 @@ class ProcuraCustoUnif(ProcuraMelhorPrim):
     """
     
     def __init__(self):
-        super().__init__(AvaliadorCustoUnif())
+        super().__init__(AvaliadorCustoUnif()) # inicia ProcuraMelhorPrim com AvaliadorCustoUnif: f(n) = g(n)

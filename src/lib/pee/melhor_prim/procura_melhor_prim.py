@@ -3,6 +3,13 @@ from .fronteira_prioridade import FronteiraPrioridade
 
 class ProcuraMelhorPrim(ProcuraGrafo):
 
+    '''
+    Herda de ProcuraGrafo (evita ciclos) e substitui a fronteira por uma FronteiraPrioridade. 
+    Reescreve o metodo _manter() para também manter também nós com um custo mais baixo.
+ 
+    ProcuraMelhorPrim herda de ProcuraGrafo.
+    '''
+
     """
     A classe ProcuraMelhorPrim é o motor genérico das procuras que não escolhem os nós apenas pela ordem de chegada, mas sim por 
     uma função de avaliação. 
@@ -15,10 +22,10 @@ class ProcuraMelhorPrim(ProcuraGrafo):
     """
 
     def __init__(self, avaliador):
-        super().__init__(FronteiraPrioridade(avaliador))
-        self._avaliador = avaliador
+        super().__init__(FronteiraPrioridade(avaliador)) # inicializa ProcuraGrafo com FronteiraPrioridade
+        self._avaliador = avaliador # guarda o avaliador
 
 
-    def _manter(self, no):
+    def _manter(self, no): 
         return super()._manter(no) or no.custo < self._explorados[no.estado].custo 
     # o nó tambem se mantem se o custo desse nó for inferior ao custo do nó na lista explorados
