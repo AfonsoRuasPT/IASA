@@ -4,13 +4,21 @@ from .modelo.modelo_mundo import ModeloMundo
 import sae
 
 '''
-O Controlo Deliberativo é o módulo que organiza de forma modular o Modelo do Mundo, o Mecanismo de Deliberação e o Planeador.
-Coordena o ciclo de tomada de decisão e acção:
-  1 - Assimilar a percepção 
-  2 - Reconsiderar 
-  3 - Deliberar
-  4 - Planear
-  5 - Executar
+Na arquitectura deliberativa, o modelo do mundo e os mecanismos de raciocínio prático são organizados de forma modular num Controlo Deliberativo. 
+Este módulo coordena o ciclo completo de tomada ddecisão e acção, que ocorre de forma cíclica:
+
+  1 - Observar o mundo (assimilar percepção)
+  2 - Actualizar o modelo do mundo
+  3 - Reconsiderar (se necessário)
+  4 - Deliberar (decidir o quê)
+  5 - Planear (decidir como)
+  6 - Executar o plano
+
+A reconsideração épode ser necessário porque o ambiente pode mudar durante o raciocínio.
+'''
+
+'''
+O ControloDelib organiza de forma modular o ModeloMundo, o MecDelib e o Planeador, coordenando o ciclo de tomada de decisão e acção da arquitectura deliberativa.
 '''
 
 class ControloDelib(Controlo):
@@ -19,13 +27,9 @@ class ControloDelib(Controlo):
 
         """
         ControloDelib é o orquestrador do ciclo deliberativo do agente.
-        Implementa o contrato da interface Controlo que cordena o ModeloMundo, o MecDelib e o Planeador para produzir a acção a executar 
-        em cada ciclo.
+        Implementa o contrato da interface Controlo que cordena o ModeloMundo, o MecDelib e o Planeador para produzir a acção a executar em cada ciclo.
  
         ControloDelib realiza Controlo.
-        ControloDelib compõe ModeloMundo.
-        ControloDelib compõe MecDelib.
-        ControloDelib tem uma associação com Planeador.
         """
         
         self.__planeador = planeador
@@ -35,7 +39,8 @@ class ControloDelib(Controlo):
         self.__plano = None
 
     def processar(self, percepcao): # fiz este metodo com o diagrama de atividades na parte 4 slide 6
-        # implementação do método abstracto de Controlo
+        # implementação do método abstracto de Controlo: assimilar -> reconsiderar -> deliberar -> planear -> executar
+        # Coordena o ciclo deliberativo completo a cada percepção recebida
         percepcao = self.__assimilar(percepcao) # atualizamos o modelo do mundo com a percepcao recebida
         if self.__reconsiderar(): # verificamos de reconsideramos os objectivos
             self.__deliberar() # deliberamos
@@ -48,7 +53,7 @@ class ControloDelib(Controlo):
         Actualiza o estado interno do ModeloMundo com a percepção recebida,
         correspondendo ao passo 1 do ciclo deliberativo.
         """
-        self.__modelo_mundo.actualizar(percepcao) #a actualiza o ModeloMundo consoante a percepcao percepção
+        self.__modelo_mundo.actualizar(percepcao) # actualiza o ModeloMundo consoante a percepcao percepção
 
     def __reconsiderar(self):
         """
@@ -70,6 +75,7 @@ class ControloDelib(Controlo):
 
     def __planear(self):
         # gera um novo plano para os objectivos actuais, passo 4 do ciclo.
+        # Invoca o Planeador para gerar um plano de acção para os objectivos actuais.
         if self.__objectivos: # se existirem objectivos
             self.__plano = self.__planeador.planear(self.__modelo_mundo, self.__objectivos) # planeia sobre o modelo_mundo consoante ob objectivos
         else: # se não existirem objectivos
@@ -86,7 +92,7 @@ class ControloDelib(Controlo):
                 else: # se não
                     self.__plano = None # o plano está dessincronizado com o estado actual e não exisste plano
 
-    def __mostrar(self): # actualiza a visualização gráfica
+    def __mostrar(self): # actualiza a visualização gráfica do ambiente, mostrando o modelo do mundo, o plano e os objectivos.
             sae.vista.limpar() # limpa o ecran
             self.__modelo_mundo.mostrar(sae.vista) # mostra o modelo mundo
             if self.__plano: # se existir plano
