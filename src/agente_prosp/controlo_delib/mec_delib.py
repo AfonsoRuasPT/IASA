@@ -74,3 +74,10 @@ class MecDelib():
         # com este sort pretendemos que dentro dos objetivos (alvos) que verificamos
         # retornamos o objetivo mais proximo, ou seja que tem menos distancia a nossa posicao
         # dependendo do problema podemos defenir o objectivo de forma diferente.
+
+        """
+        Como o modelo PDM considera varios objectivos alteramos o retorno e deixa de ser so o objectivo na posicao 0 que representava o objectivo mais proximo
+        e passam a ser todos.
+        
+        
+        """
