@@ -11,7 +11,7 @@ class ProblemaContagem(Problema):
 
     def __init__(self, valor_inicial, valor_final, incrementos):
         """
-        Chamamos o construtor da superclasse Problema, passandolhe o estado inicial que é o valor_inicial, e a lista de operadores, OperadorIncremento.
+        Chamamos o construtor da superclasse Problema, passando-lhe o estado inicial que é o valor_inicial, e a lista de operadores, OperadorIncremento.
 
         """
         super().__init__(EstadoContagem(valor_inicial), [OperadorIncremento(inc) for inc in incrementos])
