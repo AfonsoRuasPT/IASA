@@ -11,10 +11,21 @@ Dado um ModeloPlan e uma lista de objectivos, constrói um ProblemaPlan, define 
 de estados.
 '''
 
+"""
+O planeamento automático gera sequências de acção (planos) para
+concretização de objectivos pré-definidos.
+
+O PlaneadorPEE implementa o raciocínio sobre meios usando Procura A*:
+  1 - Constrói o problema de planeamento (ProblemaPlan) com estado inicial, objectivo e operadores extraídos do ModeloPlan.
+  2 - Define a heurística (HeurDist — distância euclidiana ao objectivo).
+  3 - Executa o A* para encontrar o percurso óptimo no espaço de estados.
+  4 - Encapsula o percurso num PlanoPEE e devolve-o ao ControloDelib.
+
+"""
+
 class PlaneadorPEE(Planeador):
 
     '''
-
     PlaneadorPEE herda de Planeador.
     PlaneadorPEE tem uma dependência com ProblemaPlan e HeurDist.
     PlaneadorPEE tem uma dependência com PlanoPEE.
