@@ -17,20 +17,20 @@ class PlanoPEE(Plano):
 
     '''
     PlanoPEE herda de Plano.
-    PlanoPEE tem uma associação com Solucao..
+    PlanoPEE tem uma associação com Solucao.
     '''
 
     def __init__(self, solucao):
         self.__solucao = solucao
         self.__passos = [passo for passo in solucao] # os passos sao uma lista de instancia de espaco para cada passo da solucao
 
-    def obter_accao(self, estado):
+    def obter_accao(self, estado): # devolve o operador a executar no estado actual do agente.
         if self.__passos: # verificamos se existem passos
             passo = self.__passos.pop(0) # retiramos o primeiro passo da lista
             if passo.estado == estado: # se estado for o mesmo entao o plano esta sincronizado com o agente
                 return passo.operador # retornamos o operador so passo
 
-    def mostrar(self,vista):
-        if self.__passos:
+    def mostrar(self,vista): # mostra o plano na vista gráfica
+        if self.__passos: # se existirem passos
             for passo in self.__passos:
-                vista.mostrar_vector(passo.estado.posicao,passo.operador.ang)
+                vista.mostrar_vector(passo.estado.posicao,passo.operador.ang) # mostra cada um deles

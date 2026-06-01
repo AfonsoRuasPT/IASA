@@ -1,13 +1,30 @@
 class MecUtil():
 
+
+    """
+    O MecUtil implementa o algoritmo de iteração da utilidade de estado.
+
+    A utilidade U(s) representa o valor a longo prazo de um estado é a soma
+    das recompensas descontadas esperadas ao longo de uma sequência de estados.
+
+    O cálculo é iterativo (programação dinâmica), aproveitando a propriedade
+    de Markov: a utilidade de cada estado depende apenas das utilidades dos
+    seus estados sucessores imediatos:
+
+    U(s) = max_a Σ_{s'} T(s,a,s') * [R(s,a,s') + Y * U(s')]
+
+    Esta é a Equação de Bellman para a política óptima.
+    O processo converge quando a diferença máxima entre iterações consecutivas (gama) é inferior ao limiar gama_max.
+    """
+
     '''
     O Mecanismo Utilidade é responsavel por calcular a utilidade de um estado.
     '''
 
     def __init__(self, modelo, gama, delta_max):
-        self.__delta_max = delta_max
-        self.__modelo = modelo
-        self.__gama = gama
+        self.__delta_max = delta_max # limiar de convergência
+        self.__modelo = modelo # modelo PDM
+        self.__gama = gama # factor de desconto
 
     def utilidade(self):
         '''
